@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:805874667311:android:2fbf467a187a0e6b031bda",
         "android_client_info": {
-          "package_name": "com.example.randcomments"
+          "package_name": "com.comments.randcomments"
         }
       },
       "oauth_client": [
@@ -35,7 +35,7 @@
               "client_id": "805874667311-jpaa0p08jb92593bulfp2t5dflsh22rn.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.randcomments"
+                "bundle_id": "com.comments.randcomments"
               }
             }
           ]

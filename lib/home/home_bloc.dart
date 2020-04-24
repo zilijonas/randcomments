@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:randcomments/api/add-comment-request.dart';
 import 'package:randcomments/api/comment/comment.dart';
+import 'package:randcomments/api/common/order-by-child.dart';
+import 'package:randcomments/api/common/order-direction.dart';
 import 'package:randcomments/home/index.dart';
 import 'package:randcomments/infrastructure/api-comments.dart';
 
@@ -16,7 +18,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     if (event is HomeInitiated) {
-      yield* _fetchComments();
+      yield* _fetchComments(event.direction);
     }
 
     if (event is AddCommentClicked) {
@@ -28,10 +30,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  Stream<HomeState> _fetchComments() async* {
+  Stream<HomeState> _fetchComments(OrderDirection direction) async* {
     yield HomeLoading();
     try {
-      final result = await _apiComments.comments();
+      final result =
+          await _apiComments.comments(OrderByChild.createdAt, direction);
       yield result.fold(
           (comments) => HomeSuccess(comments), (error) => HomeFailure(error));
     } catch (e) {

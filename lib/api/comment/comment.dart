@@ -16,5 +16,5 @@ class Comment {
       _$CommentFromJson(json);
   Map<String, dynamic> toJson() => _$CommentToJson(this);
 
-  String dateTime() => DateFormat('hh:mm dd.MM.yy').format(createdAt);
+  String dateTime() => DateFormat('hh:mm\nMM.dd').format(createdAt);
 }

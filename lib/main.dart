@@ -26,7 +26,7 @@ class RandCommentsApp extends StatelessWidget {
           child: MaterialApp(
             title: 'Random Comments',
             theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primarySwatch: Colors.deepPurple,
             ),
             home: HomePage(),
           ));

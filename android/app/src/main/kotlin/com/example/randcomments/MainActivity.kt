@@ -1,4 +1,4 @@
-package com.example.randcomments
+package com.comments.randcomments
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
