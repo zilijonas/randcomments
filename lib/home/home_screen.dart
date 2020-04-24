@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          if (state is HomeLoading) {
+          if (state is HomeLoading || state is HomeInitial) {
             return LinearProgressIndicator();
           }
           if (state is HomeSuccess) {
@@ -39,7 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (c, idx) => _buildListItem(state.comments[idx]),
             );
           }
-          return SizedBox.shrink();
+          return Center(
+              child: Text(
+                  state is HomeFailure ? state.error : 'Data not loaded.'));
         },
       ),
       floatingActionButton: FloatingActionButton(

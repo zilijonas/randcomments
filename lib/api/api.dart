@@ -16,7 +16,6 @@ class Api {
   Future<String> removeComment(String id) async {
     final response =
         await _dio.post('removeComment', queryParameters: {"id": id});
-    print(response.data);
     return response.data["id"];
   }
 

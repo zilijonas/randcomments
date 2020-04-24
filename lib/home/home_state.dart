@@ -16,4 +16,8 @@ class HomeSuccess extends HomeState {
   HomeSuccess(this.comments);
 }
 
-class HomeFailure extends HomeState {}
+class HomeFailure extends HomeState {
+  final String error;
+
+  HomeFailure(this.error);
+}

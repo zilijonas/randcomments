@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:randcomments/api/add-comment-request.dart';
 import 'package:randcomments/api/comment/comment.dart';
 import 'package:randcomments/home/index.dart';
 import 'package:randcomments/infrastructure/api-comments.dart';
@@ -14,34 +15,51 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
-    final currentState = state;
-    final List<Comment> currentList =
-        currentState is HomeSuccess ? currentState.comments : [];
-
     if (event is HomeInitiated) {
-      yield HomeLoading();
-      try {
-        final comments = await _apiComments.comments();
-        yield HomeSuccess(comments);
-      } catch (e) {
-        yield HomeFailure();
-      }
+      yield* _fetchComments();
     }
 
     if (event is AddCommentClicked) {
-      yield HomeLoading();
-      final comment = await _apiComments.add(event.comment);
-      yield HomeSuccess([...currentList, comment]);
+      yield* _addComment(event.comment);
     }
 
     if (event is RemoveCommentClicked) {
-      yield HomeLoading();
-      try {
-        final id = await _apiComments.remove(event.id);
-        yield HomeSuccess(currentList.where((c) => c.id != id).toList());
-      } catch (e) {
-        yield HomeSuccess(currentList);
-      }
+      yield* _removeComment(event.id);
     }
   }
+
+  Stream<HomeState> _fetchComments() async* {
+    yield HomeLoading();
+    try {
+      final result = await _apiComments.comments();
+      yield result.fold(
+          (comments) => HomeSuccess(comments), (error) => HomeFailure(error));
+    } catch (e) {
+      yield HomeFailure(e.toString());
+    }
+  }
+
+  Stream<HomeState> _addComment(AddCommentRequest newComment) async* {
+    final currentList = _currentCommentsList(state);
+    yield HomeLoading();
+    final result = await _apiComments.add(newComment);
+    yield result.fold((comment) => HomeSuccess([...currentList, comment]),
+        (error) => HomeFailure(error));
+  }
+
+  Stream<HomeState> _removeComment(String id) async* {
+    final currentList = _currentCommentsList(state);
+    yield HomeLoading();
+    try {
+      final result = await _apiComments.remove(id);
+      yield result.fold(
+          (id) => HomeSuccess(currentList.where((c) => c.id != id).toList()),
+          (error) => HomeFailure(error));
+    } catch (e) {
+      yield HomeSuccess(currentList);
+    }
+  }
+
+  List<Comment> _currentCommentsList(HomeState currentState) =>
+      currentState is HomeSuccess ? currentState.comments : [];
 }

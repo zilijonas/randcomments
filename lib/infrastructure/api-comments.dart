@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart' show DioError;
 import 'package:randcomments/api/add-comment-request.dart';
 import 'package:randcomments/api/api.dart';
 import 'package:randcomments/api/comment/comment.dart';
@@ -6,27 +8,27 @@ class ApiComments {
   final Api _api;
   ApiComments(this._api);
 
-  Future<List<Comment>> comments() async {
+  Future<Either<List<Comment>, String>> comments() async {
     try {
-      return await _api.getComments();
-    } on Error catch (error) {
-      print(error);
+      return Left(await _api.getComments());
+    } on DioError catch (error) {
+      return Right(error.message);
     }
   }
 
-  Future<Comment> add(AddCommentRequest comment) async {
+  Future<Either<Comment, String>> add(AddCommentRequest comment) async {
     try {
-      return await _api.addComment(comment);
-    } on Error catch (error) {
-      print(error);
+      return Left(await _api.addComment(comment));
+    } on DioError catch (error) {
+      return Right(error.message);
     }
   }
 
-  Future<String> remove(String id) async {
+  Future<Either<String, String>> remove(String id) async {
     try {
-      return await _api.removeComment(id);
-    } on Error catch (error) {
-      print(error);
+      return Left(await _api.removeComment(id));
+    } on DioError catch (error) {
+      return Right(error.message);
     }
   }
 }
