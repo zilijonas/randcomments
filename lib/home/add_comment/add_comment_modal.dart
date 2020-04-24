@@ -1,16 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:randcomments/api/models/comment/comment.dart';
+import 'package:randcomments/api/add-comment-request.dart';
 
 import 'form/comment_form_field.dart';
 
 class AddCommentModal extends StatelessWidget {
-  final void Function(Comment) _onSubmit;
+  final void Function(AddCommentRequest) _onSubmit;
 
   AddCommentModal(this._onSubmit);
 
   final _formKey = GlobalKey<FormState>();
-  final Map<String, dynamic> _formData = {'name': null, 'comment': null};
+  final Map<String, dynamic> _formData = {'author': null, 'content': null};
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +20,16 @@ class AddCommentModal extends StatelessWidget {
           key: _formKey,
           child: Column(children: <Widget>[
             CommentFormField('Name', 'Please enter the name',
-                (val) => _formData['name'] = val),
+                (val) => _formData['author'] = val),
             CommentFormField('Comment', 'Please enter the comment',
-                (val) => _formData['comment'] = val),
+                (val) => _formData['content'] = val),
             RaisedButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  _onSubmit(Comment(
-                    _formData['name'],
-                    _formData['comment'],
-                    Timestamp.now(),
+                  _onSubmit(AddCommentRequest(
+                    _formData['author'],
+                    _formData['content'],
+                    DateTime.now(),
                   ));
                   Navigator.of(context).pop();
                 }

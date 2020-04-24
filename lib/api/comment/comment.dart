@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -6,18 +5,16 @@ part 'comment.g.dart';
 
 @JsonSerializable(nullable: false)
 class Comment {
-  int id;
-  final String name;
-  final String comment;
-  final Timestamp date;
+  final String id;
+  final String author;
+  final String content;
+  final DateTime createdAt;
 
-  Comment(this.name, this.comment, this.date, [this.id]);
+  Comment(this.id, this.author, this.content, this.createdAt);
 
   factory Comment.fromJson(Map<String, dynamic> json) =>
       _$CommentFromJson(json);
   Map<String, dynamic> toJson() => _$CommentToJson(this);
 
-  String dateTime() => DateFormat('hh:mm dd.MM.yy').format(date.toDate());
-
-  set setId(int _id) => this.id = _id;
+  String dateTime() => DateFormat('hh:mm dd.MM.yy').format(createdAt);
 }

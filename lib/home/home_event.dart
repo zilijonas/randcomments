@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:randcomments/api/models/comment/comment.dart';
+import 'package:randcomments/api/add-comment-request.dart';
 
 @immutable
 abstract class HomeEvent extends Equatable {
@@ -11,13 +11,13 @@ abstract class HomeEvent extends Equatable {
 class HomeInitiated extends HomeEvent {}
 
 class AddCommentClicked extends HomeEvent {
-  final Comment comment;
+  final AddCommentRequest comment;
 
   AddCommentClicked(this.comment);
 }
 
 class RemoveCommentClicked extends HomeEvent {
-  final int id;
+  final String id;
 
   RemoveCommentClicked(this.id);
 }

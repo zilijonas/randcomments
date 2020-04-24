@@ -1,41 +1,47 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:randcomments/api/database.dart';
+import 'package:randcomments/api/comment/comment.dart';
 import 'package:randcomments/home/index.dart';
+import 'package:randcomments/infrastructure/api-comments.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final DatabaseService _database = DatabaseService();
+  final ApiComments _apiComments;
 
-  HomeBloc() {
-    _database.initStream().listen((data) => _inFirestore.add(data));
-  }
-
-  final _firestoreController = StreamController<DocumentSnapshot>();
-  Stream<DocumentSnapshot> get outFirestore => _firestoreController.stream;
-  Sink<DocumentSnapshot> get _inFirestore => _firestoreController.sink;
+  HomeBloc(this._apiComments);
 
   @override
   HomeState get initialState => HomeInitial();
 
   @override
-  Future<void> close() {
-    _firestoreController.close();
-    return super.close();
-  }
-
-  @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
+    final currentState = state;
+    final List<Comment> currentList =
+        currentState is HomeSuccess ? currentState.comments : [];
+
+    if (event is HomeInitiated) {
+      yield HomeLoading();
+      try {
+        final comments = await _apiComments.comments();
+        yield HomeSuccess(comments);
+      } catch (e) {
+        yield HomeFailure();
+      }
+    }
+
     if (event is AddCommentClicked) {
       yield HomeLoading();
-      await _database.addComment(event.comment);
-      yield HomeSuccess();
+      final comment = await _apiComments.add(event.comment);
+      yield HomeSuccess([...currentList, comment]);
     }
 
     if (event is RemoveCommentClicked) {
       yield HomeLoading();
-      await _database.removeComment(event.id);
-      yield HomeSuccess();
+      try {
+        final id = await _apiComments.remove(event.id);
+        yield HomeSuccess(currentList.where((c) => c.id != id).toList());
+      } catch (e) {
+        yield HomeSuccess(currentList);
+      }
     }
   }
 }

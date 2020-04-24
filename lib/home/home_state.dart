@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:randcomments/api/comment/comment.dart';
 
 abstract class HomeState extends Equatable {
   @override
@@ -9,6 +10,10 @@ class HomeInitial extends HomeState {}
 
 class HomeLoading extends HomeState {}
 
-class HomeSuccess extends HomeState {}
+class HomeSuccess extends HomeState {
+  final List<Comment> comments;
 
-class HomeError extends HomeState {}
+  HomeSuccess(this.comments);
+}
+
+class HomeFailure extends HomeState {}
