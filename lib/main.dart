@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:randcomments/comment/comment_bloc.dart';
+import 'package:randcomments/router/router.dart';
 
 import 'api/api.dart';
 import 'home/index.dart';
@@ -21,13 +23,15 @@ class RandCommentsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
           providers: [
-            BlocProvider<HomeBloc>(create: (c) => HomeBloc(_apiComments))
+            BlocProvider<HomeBloc>(create: (context) => HomeBloc(_apiComments)),
+            BlocProvider<CommentBloc>(
+                create: (context) => CommentBloc(
+                    _apiComments, BlocProvider.of<HomeBloc>(context)))
           ],
           child: MaterialApp(
             title: 'Random Comments',
-            theme: ThemeData(
-              primarySwatch: Colors.deepPurple,
-            ),
+            theme: ThemeData(primarySwatch: Colors.deepPurple),
             home: HomePage(),
+            onGenerateRoute: Router.generateRoute,
           ));
 }

@@ -19,10 +19,16 @@ class Api {
     return response.data["id"];
   }
 
-  Future<List<Comment>> getComments() async {
+  Future<List<Comment>> comments() async {
     final response = await _dio.get('getComments');
     return response.data["comments"]
         .map<Comment>((c) => Comment.fromJson(c))
         .toList();
+  }
+
+  Future<Comment> comment(String id) async {
+    final response = await _dio.post('getComment', queryParameters: {"id": id});
+    print(response.data);
+    return Comment.fromJson(response.data);
   }
 }

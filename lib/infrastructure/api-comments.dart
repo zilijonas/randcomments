@@ -10,7 +10,15 @@ class ApiComments {
 
   Future<Either<List<Comment>, String>> comments() async {
     try {
-      return Left(await _api.getComments());
+      return Left(await _api.comments());
+    } on DioError catch (error) {
+      return Right(error.message);
+    }
+  }
+
+  Future<Either<Comment, String>> comment(String id) async {
+    try {
+      return Left(await _api.comment(id));
     } on DioError catch (error) {
       return Right(error.message);
     }

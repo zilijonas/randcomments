@@ -24,7 +24,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       yield* _addComment(event.comment);
     }
 
-    if (event is RemoveCommentClicked) {
+    if (event is RemoveComment) {
       yield* _removeComment(event.id);
     }
   }
@@ -51,14 +51,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Stream<HomeState> _removeComment(String id) async* {
     final currentList = _currentCommentsList(state);
     yield HomeLoading();
-    try {
-      final result = await _apiComments.remove(id);
-      yield result.fold(
-          (id) => HomeSuccess(currentList.where((c) => c.id != id).toList()),
-          (error) => HomeFailure(error));
-    } catch (e) {
-      yield HomeSuccess(currentList);
-    }
+    yield HomeSuccess(currentList.where((c) => c.id != id).toList());
   }
 
   List<Comment> _currentCommentsList(HomeState currentState) =>

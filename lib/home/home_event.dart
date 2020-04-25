@@ -16,8 +16,8 @@ class AddCommentClicked extends HomeEvent {
   AddCommentClicked(this.comment);
 }
 
-class RemoveCommentClicked extends HomeEvent {
+class RemoveComment extends HomeEvent {
   final String id;
 
-  RemoveCommentClicked(this.id);
+  RemoveComment(this.id);
 }

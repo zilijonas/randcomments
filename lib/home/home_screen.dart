@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:randcomments/api/add-comment-request.dart';
 import 'package:randcomments/api/comment/comment.dart';
-import 'package:randcomments/home/add_comment/add_comment_modal.dart';
+import 'package:randcomments/router/routes.dart';
 
 import 'index.dart';
 
 class HomeScreen extends StatefulWidget {
   final HomeBloc _homeBloc;
+
   HomeScreen(this._homeBloc);
 
   @override
@@ -23,40 +23,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          if (state is HomeLoading || state is HomeInitial) {
-            return LinearProgressIndicator();
-          }
-          if (state is HomeSuccess) {
-            return ListView.builder(
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: state.comments.length,
-              itemBuilder: (c, idx) => _buildListItem(state.comments[idx]),
-            );
-          }
-          return Center(
-              child: Text(
-                  state is HomeFailure ? state.error : 'Data not loaded.'));
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Text('Add+'),
-        onPressed: () {
-          showDialog(
-              context: context, child: AddCommentModal(_handleCommentAddition));
-        },
-      ),
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state is HomeLoading || state is HomeInitial) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (state is HomeSuccess) {
+          return ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemCount: state.comments.length,
+            itemBuilder: (c, idx) => _buildListItem(state.comments[idx]),
+          );
+        }
+        return Center(
+            child:
+                Text(state is HomeFailure ? state.error : 'Data not loaded.'));
+      },
     );
-  }
-
-  void _handleCommentAddition(AddCommentRequest comment) async {
-    widget._homeBloc.add(AddCommentClicked(comment));
-  }
-
-  void _handleCommentRemoval(String id) async {
-    widget._homeBloc.add(RemoveCommentClicked(id));
   }
 
   ListTile _buildListItem(Comment comment) => ListTile(
@@ -66,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
           comment.dateTime() ?? '',
           textAlign: TextAlign.right,
         ),
-        onLongPress: () => _handleCommentRemoval(comment.id),
+        onTap: () =>
+            Navigator.pushNamed(context, commentRoute, arguments: comment.id),
       );
 }
