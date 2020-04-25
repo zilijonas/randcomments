@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class CommentInput extends StatelessWidget {
+class EditCommentFormInput extends StatelessWidget {
   final TextEditingController _inputController;
 
-  CommentInput(this._inputController);
+  EditCommentFormInput(this._inputController);
 
   @override
   Widget build(BuildContext context) {

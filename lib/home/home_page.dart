@@ -9,7 +9,10 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: HomeScreen(BlocProvider.of<HomeBloc>(context)),
       floatingActionButton: FloatingActionButton(
-        child: Text('Add+'),
+        child: Icon(
+          Icons.add,
+          size: 32,
+        ),
         onPressed: () {
           showDialog(
               context: context,

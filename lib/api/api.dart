@@ -28,7 +28,6 @@ class Api {
 
   Future<Comment> comment(String id) async {
     final response = await _dio.post('getComment', queryParameters: {"id": id});
-    print(response.data);
     return Comment.fromJson(response.data);
   }
 }

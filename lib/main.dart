@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:randcomments/comment/comment_bloc.dart';
 import 'package:randcomments/router/router.dart';
+import 'package:randcomments/router/routes.dart';
 
 import 'api/api.dart';
 import 'home/index.dart';
@@ -30,8 +31,11 @@ class RandCommentsApp extends StatelessWidget {
           ],
           child: MaterialApp(
             title: 'Random Comments',
-            theme: ThemeData(primarySwatch: Colors.deepPurple),
-            home: HomePage(),
+            theme: ThemeData(
+                primarySwatch: Colors.blue,
+                backgroundColor: Colors.lightBlue,
+                scaffoldBackgroundColor: Colors.lightBlue[100]),
             onGenerateRoute: Router.generateRoute,
+            initialRoute: homeRoute,
           ));
 }

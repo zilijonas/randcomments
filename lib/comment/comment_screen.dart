@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:randcomments/comment/index.dart';
 
-import 'input/comment_input.dart';
+import 'edit-form/edit_comment_form.dart';
 
 class CommentScreen extends StatefulWidget {
   final CommentBloc _commentBloc;
-  final String id;
+  final String _id;
 
-  CommentScreen(this.id, this._commentBloc);
+  CommentScreen(this._id, this._commentBloc);
 
   @override
   _CommentScreenState createState() => _CommentScreenState();
@@ -20,7 +20,7 @@ class _CommentScreenState extends State<CommentScreen> {
   @override
   void initState() {
     _inputController = new TextEditingController();
-    widget._commentBloc.add(CommentInitiated(widget.id));
+    widget._commentBloc.add(CommentInitiated(widget._id));
     super.initState();
   }
 
@@ -31,39 +31,16 @@ class _CommentScreenState extends State<CommentScreen> {
         Navigator.pop(context);
       }
       if (state is CommentSuccess) {
-        setState(() => _inputController.text = state.comment.content);
+        _inputController.text = state.comment.content;
       }
     }, builder: (context, state) {
       if (state is CommentLoading) {
         return Center(child: CircularProgressIndicator());
       }
 
-      return Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          CommentInput(_inputController),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _actionButton(Icons.check, Colors.green, () {}),
-              SizedBox(width: 40),
-              _actionButton(Icons.clear, Colors.red,
-                  () => _handleCommentRemoval(widget.id)),
-            ],
-          )
-        ],
-      );
+      return EditCommentForm(
+          widget._id, _inputController, _handleCommentRemoval);
     });
-  }
-
-  IconButton _actionButton(IconData icon, Color color, Function onPressed) {
-    return IconButton(
-      color: color,
-      iconSize: 82,
-      icon: Icon(icon),
-      onPressed: onPressed,
-    );
   }
 
   void _handleCommentRemoval(String id) =>
