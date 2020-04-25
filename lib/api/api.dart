@@ -2,8 +2,6 @@ import 'package:dio/dio.dart';
 
 import 'add-comment-request.dart';
 import 'comment/comment.dart';
-import 'common/order-by-child.dart';
-import 'common/order-direction.dart';
 
 class Api {
   final Dio _dio;
@@ -21,12 +19,8 @@ class Api {
     return response.data["id"];
   }
 
-  Future<List<Comment>> getComments(
-      OrderByChild orderByChild, OrderDirection direction) async {
-    final response = await _dio.post('getComments', queryParameters: {
-      "orderByChild": orderByChild.toEnumString(),
-      "direction": direction.toEnumString()
-    });
+  Future<List<Comment>> getComments() async {
+    final response = await _dio.get('getComments');
     return response.data["comments"]
         .map<Comment>((c) => Comment.fromJson(c))
         .toList();

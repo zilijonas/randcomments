@@ -1,10 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:randcomments/api/add-comment-request.dart';
 import 'package:randcomments/api/comment/comment.dart';
-import 'package:randcomments/api/common/order-direction.dart';
 import 'package:randcomments/home/add_comment/add_comment_modal.dart';
 
 import 'index.dart';
@@ -18,21 +15,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  OrderDirection direction = OrderDirection.desc;
-
   @override
   void initState() {
-    widget._homeBloc.add(HomeInitiated(direction));
+    widget._homeBloc.add(HomeInitiated());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Comments'),
-        actions: [_orderDirectionButton(direction == OrderDirection.asc)],
-      ),
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           if (state is HomeLoading || state is HomeInitial) {
@@ -60,32 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  FlatButton _orderDirectionButton(bool directionIsAscending) {
-    return FlatButton.icon(
-      label: Text(
-        'Order',
-        style: TextStyle(color: Colors.white),
-      ),
-      icon: Icon(
-        directionIsAscending ? Icons.arrow_downward : Icons.arrow_upward,
-        color: Colors.white,
-      ),
-      onPressed: _handleReorderClick,
-    );
-  }
-
   void _handleCommentAddition(AddCommentRequest comment) async {
     widget._homeBloc.add(AddCommentClicked(comment));
   }
 
   void _handleCommentRemoval(String id) async {
     widget._homeBloc.add(RemoveCommentClicked(id));
-  }
-
-  void _handleReorderClick() async {
-    final newDirection = direction.switchDirection();
-    setState(() => direction = newDirection);
-    widget._homeBloc.add(ReorderClicked(newDirection));
   }
 
   ListTile _buildListItem(Comment comment) => ListTile(
