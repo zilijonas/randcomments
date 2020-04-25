@@ -1,32 +1,32 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart' show DioError;
-import 'package:randcomments/api/add-comment-request.dart';
+import 'package:randcomments/api/add_note_request.dart';
 import 'package:randcomments/api/api.dart';
-import 'package:randcomments/api/comment/comment.dart';
+import 'package:randcomments/api/note/note.dart';
 
-class ApiComments {
+class ApiNotes {
   final Api _api;
-  ApiComments(this._api);
+  ApiNotes(this._api);
 
-  Future<Either<List<Comment>, String>> comments() async {
+  Future<Either<List<Note>, String>> notes() async {
     try {
-      return Left(await _api.comments());
+      return Left(await _api.notes());
     } on DioError catch (error) {
       return Right(error.message);
     }
   }
 
-  Future<Either<Comment, String>> comment(String id) async {
+  Future<Either<Note, String>> note(String id) async {
     try {
-      return Left(await _api.comment(id));
+      return Left(await _api.note(id));
     } on DioError catch (error) {
       return Right(error.message);
     }
   }
 
-  Future<Either<Comment, String>> add(AddCommentRequest comment) async {
+  Future<Either<Note, String>> add(AddNoteRequest note) async {
     try {
-      return Left(await _api.addComment(comment));
+      return Left(await _api.addNote(note));
     } on DioError catch (error) {
       return Right(error.message);
     }
@@ -34,7 +34,7 @@ class ApiComments {
 
   Future<Either<String, String>> remove(String id) async {
     try {
-      return Left(await _api.removeComment(id));
+      return Left(await _api.removeNote(id));
     } on DioError catch (error) {
       return Right(error.message);
     }

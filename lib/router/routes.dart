@@ -1,3 +1,3 @@
 const String homeRoute = '/';
-const String commentRoute = '/comment';
-const String addCommentRoute = '/add';
+const String noteRoute = '/note';
+const String addNoteRoute = '/add';

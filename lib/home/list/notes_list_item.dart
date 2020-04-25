@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:randcomments/api/comment/comment.dart';
+import 'package:randcomments/api/note/note.dart';
 
-class CommentsListItem extends StatelessWidget {
-  final Comment _comment;
+class NotesListItem extends StatelessWidget {
+  final Note _note;
   final void Function() _onItemClicked;
 
-  CommentsListItem(this._comment, this._onItemClicked);
+  NotesListItem(this._note, this._onItemClicked);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +17,8 @@ class CommentsListItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _commentText(_comment.content),
-            _dateAndTimeText(_comment.dateAndTime()),
+            _noteText(_note.content),
+            _dateAndTimeText(_note.dateAndTime()),
           ],
         ),
         decoration: BoxDecoration(
@@ -50,14 +50,14 @@ class CommentsListItem extends StatelessWidget {
     );
   }
 
-  Expanded _commentText(String comment) {
+  Expanded _noteText(String note) {
     return Expanded(
       child: Container(
         child: Text(
-          comment,
+          note,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontSize: comment.length > 50 ? 18 : 24),
+          style: TextStyle(fontSize: note.length > 50 ? 18 : 24),
         ),
       ),
     );

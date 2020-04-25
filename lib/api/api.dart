@@ -1,33 +1,30 @@
 import 'package:dio/dio.dart';
 
-import 'add-comment-request.dart';
-import 'comment/comment.dart';
+import 'add_note_request.dart';
+import 'note/note.dart';
 
 class Api {
   final Dio _dio;
   Api(this._dio);
 
-  Future<Comment> addComment(AddCommentRequest comment) async {
+  Future<Note> addNote(AddNoteRequest note) async {
     final response =
-        await _dio.post('addComment', queryParameters: comment.toQueryPrams());
-    return Comment.fromJson(response.data);
+        await _dio.post('addNote', queryParameters: note.toQueryPrams());
+    return Note.fromJson(response.data);
   }
 
-  Future<String> removeComment(String id) async {
-    final response =
-        await _dio.post('removeComment', queryParameters: {"id": id});
+  Future<String> removeNote(String id) async {
+    final response = await _dio.post('removeNote', queryParameters: {"id": id});
     return response.data["id"];
   }
 
-  Future<List<Comment>> comments() async {
-    final response = await _dio.get('getComments');
-    return response.data["comments"]
-        .map<Comment>((c) => Comment.fromJson(c))
-        .toList();
+  Future<List<Note>> notes() async {
+    final response = await _dio.get('getNotes');
+    return response.data["notes"].map<Note>((c) => Note.fromJson(c)).toList();
   }
 
-  Future<Comment> comment(String id) async {
-    final response = await _dio.post('getComment', queryParameters: {"id": id});
-    return Comment.fromJson(response.data);
+  Future<Note> note(String id) async {
+    final response = await _dio.post('getNote', queryParameters: {"id": id});
+    return Note.fromJson(response.data);
   }
 }

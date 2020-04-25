@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:randcomments/home/list/comments_list.dart';
-import 'package:randcomments/router/routes.dart';
+import 'package:randcomments/home/list/notes_list.dart';
 
 import 'index.dart';
 
 class HomeScreen extends StatefulWidget {
   final HomeBloc _homeBloc;
+  final void Function(String) _navigateToNote;
 
-  HomeScreen(this._homeBloc);
+  HomeScreen(this._homeBloc, this._navigateToNote);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Center(child: CircularProgressIndicator());
         }
         if (state is HomeSuccess) {
-          return CommentsList(state.comments, _navigateToComment);
+          return NotesList(state.notes, widget._navigateToNote);
         }
         return Center(
             child:
@@ -37,7 +37,4 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
-
-  void _navigateToComment(String id) =>
-      Navigator.pushNamed(context, commentRoute, arguments: id);
 }

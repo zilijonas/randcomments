@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:randcomments/comment/comment_page.dart';
+import 'package:randcomments/add_note/index.dart';
+import 'package:randcomments/note/index.dart';
 import 'package:randcomments/home/index.dart';
 import 'package:randcomments/router/routes.dart';
 
@@ -8,8 +9,10 @@ class Router {
     switch (settings.name) {
       case homeRoute:
         return _route(HomePage());
-      case commentRoute:
-        return _route(CommentPage(settings.arguments));
+      case noteRoute:
+        return _route(NotePage(settings.arguments));
+      case addNoteRoute:
+        return _route(AddNotePage());
       default:
         return _route(Scaffold(
           body: Center(child: Text('No route defined for ${settings.name}')),

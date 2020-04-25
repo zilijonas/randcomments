@@ -1,23 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'comment.dart';
+part of 'note.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Comment _$CommentFromJson(Map<String, dynamic> json) {
-  return Comment(
+Note _$NoteFromJson(Map<String, dynamic> json) {
+  return Note(
     json['id'] as String,
-    json['author'] as String,
     json['content'] as String,
-    DateTime.parse(json['createdAt'] as String),
+    DateTime.parse(json['lastEdited'] as String),
   );
 }
 
-Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
+Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
       'id': instance.id,
-      'author': instance.author,
       'content': instance.content,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'lastEdited': instance.lastEdited.toIso8601String(),
     };

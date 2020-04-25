@@ -1,17 +1,15 @@
 import 'package:built_collection/built_collection.dart';
 
-class AddCommentRequest {
-  final String _author;
+class AddNoteRequest {
   final String _content;
-  final DateTime _createdAt;
+  final DateTime _lastEdited;
 
-  AddCommentRequest(this._author, this._content, this._createdAt);
+  AddNoteRequest(this._content, this._lastEdited);
 
   Map<String, dynamic> toQueryPrams() {
     return BuiltMap<String, String>({
-      'author': _author.toString() ?? '',
       'content': _content.toString() ?? '',
-      'createdAt': _createdAt.toIso8601String() ?? '',
+      'lastEdited': _lastEdited.toIso8601String() ?? '',
     }).rebuild((x) => x.removeWhere((k, v) => v == '')).toMap();
   }
 }
