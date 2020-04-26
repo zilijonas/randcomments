@@ -36,7 +36,6 @@ class RandNotesApp extends StatelessWidget {
             title: 'Random Notes',
             theme: ThemeData(
               primarySwatch: Colors.blue,
-              backgroundColor: ThemeColors.lightBlue,
               indicatorColor: ThemeColors.white,
               splashColor: ThemeColors.lightBlue,
               accentColor: ThemeColors.white,
@@ -47,5 +46,6 @@ class RandNotesApp extends StatelessWidget {
             ),
             onGenerateRoute: Router.generateRoute,
             initialRoute: homeRoute,
+            builder: (context, child) => child,
           ));
 }

@@ -4,7 +4,7 @@ class ThemeColors {
   static final splashColor = Colors.lightBlue[100];
   static final accentColor = Colors.white;
   static final lightBlue = Colors.lightBlue[100];
-  static final blue = Colors.lightBlue[300];
+  static final blue = Colors.lightBlueAccent[200];
   static final darkBlue = Colors.lightBlue[600];
   static final green = Colors.lightGreen;
   static final red = Colors.red[400];

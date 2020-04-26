@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:randcomments/pages/home/widgets/list/notes_list.dart';
 
 import 'index.dart';
-import 'widgets/painter/painter.dart';
 
 class HomeScreen extends StatefulWidget {
   final HomeBloc _homeBloc;
@@ -30,9 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Center(child: CircularProgressIndicator());
         }
         if (state is HomeSuccess) {
-          return CustomPaint(
-              painter: CirclesPainter(),
-              child: NotesList(state.notes, widget._navigateToNote));
+          return NotesList(state.notes, widget._navigateToNote);
         }
         return Center(
             child:

@@ -25,7 +25,7 @@ class NotesListItem extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: ThemeColors.white.withOpacity(0.9),
+          color: ThemeColors.white.withOpacity(0.75),
           boxShadow: [
             BoxShadow(
               color: ThemeColors.shadowBlack,
