@@ -6,14 +6,12 @@ class ActionButton extends StatelessWidget {
   final Color color;
   final void Function() onPressed;
   final bool disabled;
-  final bool loading;
 
   ActionButton(
       {@required this.icon,
       @required this.color,
       @required this.onPressed,
-      this.disabled = false,
-      this.loading = false});
+      this.disabled = false});
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +24,8 @@ class ActionButton extends StatelessWidget {
           elevation: 4,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(36)),
-          child: loading
-              ? SizedBox(
-                  height: 30,
-                  width: 30,
-                  child: CircularProgressIndicator(strokeWidth: 2))
-              : Icon(icon, color: ThemeColors.white, size: 36),
-          onPressed: loading || disabled ? null : onPressed,
+          child: Icon(icon, color: ThemeColors.white, size: 36),
+          onPressed: disabled ? null : onPressed,
         ));
   }
 }

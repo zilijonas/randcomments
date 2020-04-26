@@ -10,7 +10,7 @@ class Api {
 
   Future<Note> newNote(NewNoteRequest note) async {
     final response =
-        await _dio.post('newNote', queryParameters: note.toQueryPrams());
+        await _dio.post('addNote', queryParameters: note.toQueryPrams());
     return Note.fromJson(response.data);
   }
 

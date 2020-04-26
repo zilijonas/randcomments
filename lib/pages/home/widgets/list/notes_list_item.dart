@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:randcomments/api/note/note.dart';
 import 'package:randcomments/theme/colors.dart';
 import 'package:randcomments/theme/text_styles.dart';
+import 'package:randcomments/widgets/bouncing_button.dart';
 
 class NotesListItem extends StatelessWidget {
   final Note _note;
@@ -11,7 +12,7 @@ class NotesListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return BouncingButton(
       child: Container(
         height: 100.0,
         margin: const EdgeInsets.all(8),
@@ -35,7 +36,7 @@ class NotesListItem extends StatelessWidget {
           ],
         ),
       ),
-      onTap: _onItemClicked,
+      onPressed: _onItemClicked,
     );
   }
 

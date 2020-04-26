@@ -66,7 +66,7 @@ class NoteFormView extends StatelessWidget {
           icon: Icons.check,
           color: ThemeColors.green,
           onPressed: _handleSubmit,
-          loading: editSaveLoading);
+          disabled: editSaveLoading || removeLoading);
     }
 
     return Row(
@@ -76,16 +76,14 @@ class NoteFormView extends StatelessWidget {
           icon: Icons.check,
           color: ThemeColors.green,
           onPressed: _handleSubmit,
-          loading: editSaveLoading,
-          disabled: removeLoading,
+          disabled: editSaveLoading || removeLoading,
         ),
         SizedBox(width: 40),
         ActionButton(
           icon: Icons.clear,
           color: ThemeColors.red,
           onPressed: onRemoveClicked,
-          loading: removeLoading,
-          disabled: editSaveLoading,
+          disabled: editSaveLoading || removeLoading,
         ),
       ],
     );
