@@ -101,11 +101,15 @@ class _LargeTextFormFieldState extends State<LargeTextFormField> {
               contentPadding: const EdgeInsets.all(16),
               errorStyle: TextStyle(height: 1)),
           initialValue: widget.initialValue,
-          validator: (value) =>
-              (value.trim().isEmpty || value.trim() == widget.initialValue) &&
-                      (_isFieldEditable == widget.editable)
-                  ? widget.error
-                  : null,
+          validator: (value) {
+            final textNotEmpty = value.trim().isNotEmpty;
+            final textChanged = value.trim() != widget.initialValue;
+            final editableChecked = _isFieldEditable != widget.editable;
+            if (textChanged || (textNotEmpty && editableChecked)) {
+              return null;
+            }
+            return widget.error;
+          },
           onChanged: widget.onChanged,
         ));
   }
