@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:randcomments/api/add_note_request.dart';
+import 'package:randcomments/widgets/note_form_view.dart';
 
-import 'form/add_note_form.dart';
 import 'index.dart';
 
 class AddNoteScreen extends StatelessWidget {
@@ -24,8 +24,13 @@ class AddNoteScreen extends StatelessWidget {
           return Center(child: Text(state.error));
         }
 
-        return AddNoteForm(state is AddNoteLoading,
-            (content) => _onSubmitClicked(context, content));
+        return NoteFormView(
+          title: 'Add Note',
+          initialValue: '',
+          formFieldError: 'You cannot save an empty note.',
+          onEditSaveClicked: (content) => _onSubmitClicked(context, content),
+          editSaveLoading: state is AddNoteLoading,
+        );
       },
     );
   }

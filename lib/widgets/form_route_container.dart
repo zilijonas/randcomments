@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:randcomments/theme/colors.dart';
+import 'package:randcomments/theme/orientation.dart';
 
 class FormRouteContainer extends StatelessWidget {
   final Widget child;
@@ -16,9 +18,11 @@ class FormRouteContainer extends StatelessWidget {
       },
       child: Container(
         width: double.infinity,
-        color: Colors.black.withOpacity(0),
-        child: child,
+        color: ThemeColors.black.withOpacity(0),
+        child: isPortrait(context) ? child : scrollableChild(),
       ),
     );
   }
+
+  Widget scrollableChild() => SingleChildScrollView(child: child);
 }

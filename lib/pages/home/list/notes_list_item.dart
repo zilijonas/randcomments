@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:randcomments/api/note/note.dart';
+import 'package:randcomments/theme/colors.dart';
+import 'package:randcomments/theme/text_styles.dart';
 
 class NotesListItem extends StatelessWidget {
   final Note _note;
@@ -23,12 +25,12 @@ class NotesListItem extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Colors.white,
+          color: ThemeColors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey,
-              offset: Offset(0.0, 1.0),
-              blurRadius: 6.0,
+              color: ThemeColors.shadowBlack,
+              offset: Offset(0.0, 4.0),
+              blurRadius: 4.0,
             ),
           ],
         ),
@@ -44,7 +46,7 @@ class NotesListItem extends StatelessWidget {
         Text(
           dateAndTime,
           textAlign: TextAlign.right,
-          style: TextStyle(fontSize: 10, color: Colors.black45),
+          style: TextStyles.listItemDateTime,
         ),
       ],
     );
@@ -57,7 +59,7 @@ class NotesListItem extends StatelessWidget {
           note,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontSize: note.length > 50 ? 18 : 24),
+          style: TextStyles.listItemContent(note.length),
         ),
       ),
     );

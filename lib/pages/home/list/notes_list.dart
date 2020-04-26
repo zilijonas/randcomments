@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:randcomments/api/note/note.dart';
-import 'package:randcomments/home/list/notes_list_item.dart';
+
+import 'notes_list_item.dart';
 
 class NotesList extends StatelessWidget {
   final List<Note> _notes;

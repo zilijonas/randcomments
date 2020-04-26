@@ -1,14 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:randcomments/add_note/add_note_bloc.dart';
-import 'package:randcomments/note/note_bloc.dart';
 import 'package:randcomments/router/router.dart';
 import 'package:randcomments/router/routes.dart';
+import 'package:randcomments/theme/colors.dart';
 
 import 'api/api.dart';
-import 'home/index.dart';
 import 'infrastructure/api_notes.dart';
+import 'pages/index.dart';
 
 void main() {
   Dio dio = Dio(BaseOptions(
@@ -36,9 +35,16 @@ class RandNotesApp extends StatelessWidget {
           child: MaterialApp(
             title: 'Random Notes',
             theme: ThemeData(
-                primarySwatch: Colors.blue,
-                backgroundColor: Colors.lightBlue,
-                scaffoldBackgroundColor: Colors.lightBlue[100]),
+              primarySwatch: Colors.blue,
+              backgroundColor: ThemeColors.lightBlue,
+              indicatorColor: ThemeColors.white,
+              splashColor: ThemeColors.lightBlue,
+              accentColor: ThemeColors.white,
+              scaffoldBackgroundColor: ThemeColors.blue,
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
+                  foregroundColor: ThemeColors.darkBlue,
+                  backgroundColor: ThemeColors.white),
+            ),
             onGenerateRoute: Router.generateRoute,
             initialRoute: homeRoute,
           ));

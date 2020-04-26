@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:randcomments/home/index.dart';
+import 'package:randcomments/pages/home/index.dart';
 import 'package:randcomments/router/routes.dart';
 
 class HomePage extends StatelessWidget {

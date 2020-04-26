@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:randcomments/api/edit_note_request.dart';
-import 'package:randcomments/note/index.dart';
+import 'package:randcomments/widgets/note_form_view.dart';
 
-import 'edit_form/edit_note_form.dart';
+import 'index.dart';
 
 class NoteScreen extends StatefulWidget {
   final NoteBloc _noteBloc;
@@ -29,23 +29,19 @@ class _NoteScreenState extends State<NoteScreen> {
         Navigator.pop(context);
       }
     }, builder: (context, state) {
-      if (state is NoteLoading) {
-        return Center(child: CircularProgressIndicator());
-      }
-
-      if (state is NoteSuccess) {
-        return EditNoteForm(
-          state.note.content,
-          _handleNoteRemoval,
-          _handleNoteEdition,
-        );
-      }
-
       if (state is NoteFailure) {
         return Center(child: Text(state.error));
       }
 
-      return SizedBox.shrink();
+      return NoteFormView(
+        title: 'Edit Note',
+        initialValue: state is NoteSuccess ? state.note.content : '',
+        formFieldError: 'You cannot save an empty or unedited note.',
+        onEditSaveClicked: _handleNoteEdition,
+        onRemoveClicked: _handleNoteRemoval,
+        editSaveLoading: state is NoteEditLoading,
+        removeLoading: state is NoteRemoveLoading,
+      );
     });
   }
 

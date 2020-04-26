@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:randcomments/api/edit_note_request.dart';
-import 'package:randcomments/home/index.dart';
+import 'package:randcomments/pages/home/index.dart';
 import 'package:randcomments/infrastructure/api_notes.dart';
 
 import 'index.dart';
@@ -42,7 +42,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
   }
 
   Stream<NoteState> _editNote(EditNoteRequest note) async* {
-    yield NoteLoading();
+    yield NoteEditLoading();
     try {
       final result = await _apiNotes.edit(note);
       yield result.fold((editedNote) {
@@ -55,7 +55,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
   }
 
   Stream<NoteState> _removeNote(String id) async* {
-    yield NoteLoading();
+    yield NoteRemoveLoading();
     try {
       final result = await _apiNotes.remove(id);
       yield result.fold((id) {

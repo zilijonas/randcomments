@@ -10,6 +10,10 @@ class NoteInitial extends NoteState {}
 
 class NoteLoading extends NoteState {}
 
+class NoteEditLoading extends NoteLoading {}
+
+class NoteRemoveLoading extends NoteLoading {}
+
 class NoteSuccess extends NoteState {
   final Note note;
 

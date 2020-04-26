@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:randcomments/api/add_note_request.dart';
-import 'package:randcomments/home/index.dart';
+import 'package:randcomments/pages/home/index.dart';
 import 'package:randcomments/infrastructure/api_notes.dart';
 
 import 'index.dart';

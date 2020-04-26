@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:randcomments/add_note/index.dart';
-import 'package:randcomments/note/index.dart';
-import 'package:randcomments/home/index.dart';
+import 'package:randcomments/pages/add_note/index.dart';
+import 'package:randcomments/pages/note/index.dart';
+import 'package:randcomments/pages/home/index.dart';
 import 'package:randcomments/router/routes.dart';
 
 class Router {

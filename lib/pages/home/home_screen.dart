@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:randcomments/home/list/notes_list.dart';
+import 'package:randcomments/pages/home/list/notes_list.dart';
 
 import 'index.dart';
 
