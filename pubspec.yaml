@@ -15,7 +15,6 @@ dependencies:
   flutter_bloc: ^3.2.0
   dio: ^3.0.9
   equatable: ^1.1.0
-  flutter_secure_storage: ^3.3.3
   intl: ^0.16.1
   dartz: ^0.8.9
   arrow_path: ^1.0.0

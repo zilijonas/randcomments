@@ -46,7 +46,6 @@ class NoteForm extends StatelessWidget {
             editable: isInitialyEditable,
             onEditableChecked: (val) => _formData['editable'] = val,
           ),
-          SizedBox(height: 10),
           _formActions(),
           SizedBox(height: 10),
           _returnToPrevPageHint(),

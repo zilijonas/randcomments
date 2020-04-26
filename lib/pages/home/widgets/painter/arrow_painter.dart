@@ -37,7 +37,7 @@ class ArrowPainter extends CustomPainter {
   void _drawArrow(Canvas canvas, Size size) => canvas.drawPath(
       ArrowPath.make(
           path: Path()
-            ..moveTo(size.width * 0.49, size.height * 0.6)
+            ..moveTo(size.width * 0.49, size.height * 0.61)
             ..cubicTo(
               size.width * 0.5,
               size.height * 0.7,

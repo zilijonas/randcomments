@@ -47,7 +47,7 @@ class _LargeTextFormFieldState extends State<LargeTextFormField> {
             if (widget.loading) _loadingSpinner(),
           ],
         ),
-        if (!widget.loading) _editableCheckbox(),
+        _editableCheckbox(),
       ],
     );
   }
@@ -65,7 +65,7 @@ class _LargeTextFormFieldState extends State<LargeTextFormField> {
           checkColor: ThemeColors.darkBlue,
           materialTapTargetSize: MaterialTapTargetSize.padded,
           value: _isFieldEditable,
-          onChanged: _handleCheckboxClick,
+          onChanged: widget.loading ? null : _handleCheckboxClick,
         ),
       ],
     );
