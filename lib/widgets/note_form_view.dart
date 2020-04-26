@@ -39,7 +39,8 @@ class NoteFormView extends StatelessWidget {
               formFieldError,
               (val) => _formData['content'] = val,
               initialValue,
-              editSaveLoading || removeLoading),
+              editSaveLoading || removeLoading,
+              _loadingMessage()),
           SizedBox(height: 10),
           _formActions(),
           SizedBox(height: 10),
@@ -96,6 +97,9 @@ class NoteFormView extends StatelessWidget {
       child: Text(title, style: TextStyles.pageTitle),
     );
   }
+
+  String _loadingMessage() =>
+      editSaveLoading ? 'Saving...' : removeLoading ? 'Removing...' : '';
 
   void _handleSubmit() {
     if (_formKey.currentState.validate()) {

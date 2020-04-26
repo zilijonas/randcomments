@@ -8,9 +8,10 @@ class LargeTextFormField extends StatelessWidget {
   final void Function(String) _onChanged;
   final String _initialValue;
   final bool _loading;
+  final String _loadingMessage;
 
   LargeTextFormField(this._error, this._onChanged, this._initialValue,
-      [this._loading = false]);
+      [this._loading = false, this._loadingMessage = 'Loading...']);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,12 @@ class LargeTextFormField extends StatelessWidget {
                       : null,
               onChanged: _onChanged,
             )),
-        if (_loading) CircularProgressIndicator()
+        if (_loading)
+          Column(children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 10),
+            Text(_loadingMessage, style: TextStyles.inputLoadingText),
+          ]),
       ],
     );
   }
