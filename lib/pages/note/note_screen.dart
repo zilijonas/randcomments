@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:randcomments/api/edit_note_request.dart';
-import 'package:randcomments/widgets/note_form_view.dart';
+import 'package:randcomments/widgets/note_form.dart';
 
 import 'index.dart';
 
@@ -33,9 +33,10 @@ class _NoteScreenState extends State<NoteScreen> {
         return Center(child: Text(state.error));
       }
 
-      return NoteFormView(
+      return NoteForm(
         title: 'Edit Note',
         initialValue: state is NoteSuccess ? state.note.content : '',
+        isInitialyEditable: state is NoteSuccess ? state.note.editable : false,
         formFieldError: 'You cannot save an empty or unedited note.',
         onEditSaveClicked: _handleNoteEdition,
         onRemoveClicked: _handleNoteRemoval,
@@ -48,6 +49,6 @@ class _NoteScreenState extends State<NoteScreen> {
   void _handleNoteRemoval() =>
       widget._noteBloc.add(RemoveNoteClicked(widget._id));
 
-  void _handleNoteEdition(String content) => widget._noteBloc
-      .add(EditSaveClicked(EditNoteRequest(widget._id, content)));
+  void _handleNoteEdition(String content, bool editable) => widget._noteBloc
+      .add(EditSaveClicked(EditNoteRequest(widget._id, content, editable)));
 }

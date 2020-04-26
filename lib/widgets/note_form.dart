@@ -5,26 +5,28 @@ import 'package:randcomments/widgets/large_text_form_field.dart';
 
 import 'action_button.dart';
 
-class NoteFormView extends StatelessWidget {
+class NoteForm extends StatelessWidget {
   final String title;
   final String initialValue;
+  final bool isInitialyEditable;
   final String formFieldError;
-  final void Function(String) onEditSaveClicked;
+  final void Function(String content, bool editable) onEditSaveClicked;
   final void Function() onRemoveClicked;
   final bool editSaveLoading;
   final bool removeLoading;
 
-  NoteFormView(
+  NoteForm(
       {@required this.title,
       @required this.initialValue,
       @required this.formFieldError,
       @required this.onEditSaveClicked,
       this.onRemoveClicked,
+      this.isInitialyEditable = true,
       this.editSaveLoading = false,
       this.removeLoading = false});
 
   final _formKey = GlobalKey<FormState>();
-  final Map<String, dynamic> _formData = {'content': null};
+  final Map<String, dynamic> _formData = {'content': null, 'editable': null};
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +38,14 @@ class NoteFormView extends StatelessWidget {
         children: [
           _formTitle(),
           LargeTextFormField(
-              formFieldError,
-              (val) => _formData['content'] = val,
-              initialValue,
-              editSaveLoading || removeLoading,
-              _loadingMessage()),
+            error: formFieldError,
+            onChanged: (val) => _formData['content'] = val,
+            initialValue: initialValue,
+            loading: editSaveLoading || removeLoading,
+            loadingMessage: _loadingMessage(),
+            editable: isInitialyEditable,
+            onEditableChecked: (val) => _formData['editable'] = val,
+          ),
           SizedBox(height: 10),
           _formActions(),
           SizedBox(height: 10),
@@ -101,7 +106,8 @@ class NoteFormView extends StatelessWidget {
 
   void _handleSubmit() {
     if (_formKey.currentState.validate()) {
-      onEditSaveClicked(_formData['content']);
+      onEditSaveClicked(_formData['content'] ?? initialValue,
+          _formData['editable'] ?? isInitialyEditable ?? true);
     }
   }
 }

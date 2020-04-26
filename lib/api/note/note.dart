@@ -8,9 +8,10 @@ part 'note.g.dart';
 class Note {
   final String id;
   final String content;
+  final bool editable;
   final DateTime lastEdited;
 
-  Note(this.id, this.content, this.lastEdited);
+  Note(this.id, this.content, this.editable, this.lastEdited);
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
   Map<String, dynamic> toJson() => _$NoteToJson(this);

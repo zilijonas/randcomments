@@ -9,7 +9,7 @@ class MockHomeBloc extends Mock implements HomeBloc {}
 
 void main() {
   final fakeError = 'error';
-  final fakeNote = Note('0', 'test', DateTime.now());
+  final fakeNote = Note('0', 'test', true, DateTime.now());
 
   NoteBloc _sut([HomeBloc bloc, bool success = true]) => NoteBloc(
       FakeNotes(fakeNote, success ? null : fakeError),
@@ -40,7 +40,8 @@ void main() {
         verify(homeBloc.add(EditNote(fakeNote))).called(1);
       });
 
-      sut.add(EditSaveClicked(EditNoteRequest(fakeNote.id, fakeNote.content)));
+      sut.add(EditSaveClicked(
+          EditNoteRequest(fakeNote.id, fakeNote.content, fakeNote.editable)));
       homeBloc.close();
     });
 
@@ -58,7 +59,8 @@ void main() {
         verifyNever(homeBloc.add(EditNote(fakeNote)));
       });
 
-      sut.add(EditSaveClicked(EditNoteRequest(fakeNote.id, fakeNote.content)));
+      sut.add(EditSaveClicked(
+          EditNoteRequest(fakeNote.id, fakeNote.content, fakeNote.editable)));
       homeBloc.close();
     });
   });

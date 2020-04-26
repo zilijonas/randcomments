@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:randcomments/api/new_note_request.dart';
-import 'package:randcomments/widgets/note_form_view.dart';
+import 'package:randcomments/widgets/note_form.dart';
 
 import 'index.dart';
 
@@ -24,18 +24,19 @@ class NewNoteScreen extends StatelessWidget {
           return Center(child: Text(state.error));
         }
 
-        return NoteFormView(
+        return NoteForm(
           title: 'Add Note',
           initialValue: '',
           formFieldError: 'You cannot save an empty note.',
-          onEditSaveClicked: (content) => _onSubmitClicked(context, content),
+          onEditSaveClicked: (content, editable) =>
+              _onSubmitClicked(context, content, editable),
           editSaveLoading: state is NewNoteLoading,
         );
       },
     );
   }
 
-  void _onSubmitClicked(BuildContext context, String content) {
-    _newNoteBloc.add(SubmitClicked(NewNoteRequest(content)));
+  void _onSubmitClicked(BuildContext context, String content, bool editable) {
+    _newNoteBloc.add(SubmitClicked(NewNoteRequest(content, editable)));
   }
 }

@@ -5,7 +5,7 @@ import 'package:randcomments/pages/index.dart';
 
 void main() {
   final fakeError = 'error';
-  final fakeNote = Note('0', 'test', DateTime.now());
+  final fakeNote = Note('0', 'test', true, DateTime.now());
 
   HomeBloc _sut([bool success = true]) =>
       HomeBloc(FakeNotes(fakeNote, success ? null : fakeError));

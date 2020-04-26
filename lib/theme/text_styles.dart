@@ -19,6 +19,8 @@ class TextStyles {
       fontSize: 24,
       fontWeight: FontWeight.w500,
       shadows: _textShadows);
+  static final editableCheckbox =
+      TextStyle(color: ThemeColors.white, fontSize: 18, shadows: _textShadows);
 
   static listItemContent(textLength) =>
       TextStyle(fontSize: textLength > 50 ? 18 : 24);

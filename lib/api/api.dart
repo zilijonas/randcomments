@@ -11,12 +11,16 @@ class Api {
   Future<Note> newNote(NewNoteRequest note) async {
     final response =
         await _dio.post('addNote', queryParameters: note.toQueryPrams());
+    print(note.toQueryPrams());
+    print(response.data);
     return Note.fromJson(response.data);
   }
 
   Future<Note> editNote(EditNoteRequest note) async {
     final response =
         await _dio.post('editNote', queryParameters: note.toQueryPrams());
+    print(note.toQueryPrams());
+    print(response.data);
     return Note.fromJson(response.data);
   }
 
