@@ -1,6 +1,8 @@
+import 'dart:io' show HttpStatus;
 import 'package:dio/dio.dart';
 
 import 'add_note_request.dart';
+import 'edit_note_request.dart';
 import 'note/note.dart';
 
 class Api {
@@ -10,6 +12,12 @@ class Api {
   Future<Note> addNote(AddNoteRequest note) async {
     final response =
         await _dio.post('addNote', queryParameters: note.toQueryPrams());
+    return Note.fromJson(response.data);
+  }
+
+  Future<Note> editNote(EditNoteRequest note) async {
+    final response =
+        await _dio.post('editNote', queryParameters: note.toQueryPrams());
     return Note.fromJson(response.data);
   }
 

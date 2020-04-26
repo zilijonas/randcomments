@@ -16,6 +16,12 @@ class AddNote extends HomeEvent {
   AddNote(this.note);
 }
 
+class EditNote extends HomeEvent {
+  final Note note;
+
+  EditNote(this.note);
+}
+
 class RemoveNote extends HomeEvent {
   final String id;
 

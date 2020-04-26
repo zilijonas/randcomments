@@ -9,6 +9,6 @@ class AddNoteFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LargeTextFormField(_error, _onChanged);
+    return LargeTextFormField(_error, _onChanged, '');
   }
 }

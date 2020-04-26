@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:randcomments/api/edit_note_request.dart';
 import 'package:randcomments/note/index.dart';
 
 import 'edit_form/edit_note_form.dart';
@@ -33,7 +34,11 @@ class _NoteScreenState extends State<NoteScreen> {
       }
 
       if (state is NoteSuccess) {
-        return EditNoteForm(widget._id, state.note.content, _handleNoteRemoval);
+        return EditNoteForm(
+          state.note.content,
+          _handleNoteRemoval,
+          _handleNoteEdition,
+        );
       }
 
       if (state is NoteFailure) {
@@ -44,6 +49,9 @@ class _NoteScreenState extends State<NoteScreen> {
     });
   }
 
-  void _handleNoteRemoval(String id) =>
-      widget._noteBloc.add(RemoveNoteClicked(id));
+  void _handleNoteRemoval() =>
+      widget._noteBloc.add(RemoveNoteClicked(widget._id));
+
+  void _handleNoteEdition(String content) => widget._noteBloc
+      .add(EditSaveClicked(EditNoteRequest(widget._id, content)));
 }

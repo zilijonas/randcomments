@@ -5,18 +5,18 @@ class LargeTextFormField extends StatelessWidget {
   final void Function(String) _onChanged;
   final String _initialValue;
 
-  LargeTextFormField([this._error, this._onChanged, this._initialValue]);
+  LargeTextFormField(this._error, this._onChanged, this._initialValue);
 
   @override
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.all(8.0),
-        padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.9),
           borderRadius: BorderRadius.circular(32),
         ),
         child: TextFormField(
+          scrollPadding: EdgeInsets.zero,
           autocorrect: false,
           minLines: 10,
           maxLines: 10,
@@ -26,7 +26,9 @@ class LargeTextFormField extends StatelessWidget {
               contentPadding: const EdgeInsets.all(16)),
           initialValue: _initialValue,
           validator: (value) =>
-              value.trim().isEmpty && _error != null ? _error : null,
+              (value.trim().isEmpty || value.trim() == _initialValue)
+                  ? _error
+                  : null,
           onChanged: _onChanged,
         ));
   }

@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:built_collection/built_collection.dart';
 
 part 'note.g.dart';
 
@@ -18,4 +19,12 @@ class Note {
   String date() => DateFormat('yyyy.MM.dd').format(lastEdited);
 
   String dateAndTime() => DateFormat('yyyy.MM.dd hh:mm').format(lastEdited);
+
+  Map<String, dynamic> toQueryPrams() {
+    return BuiltMap<String, String>({
+      'id': id.toString(),
+      'content': content.toString() ?? '',
+      'lastEdited': lastEdited.toIso8601String() ?? '',
+    }).rebuild((x) => x.removeWhere((k, v) => v == '')).toMap();
+  }
 }

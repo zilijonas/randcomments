@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:randcomments/api/edit_note_request.dart';
 import 'package:randcomments/home/index.dart';
 import 'package:randcomments/infrastructure/api_notes.dart';
 
@@ -20,6 +21,10 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
       yield* _fetchNote(event.id);
     }
 
+    if (event is EditSaveClicked) {
+      yield* _editNote(event.note);
+    }
+
     if (event is RemoveNoteClicked) {
       yield* _removeNote(event.id);
     }
@@ -31,6 +36,19 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
       final result = await _apiNotes.note(id);
       yield result.fold(
           (note) => NoteSuccess(note), (error) => NoteFailure(error));
+    } catch (e) {
+      yield NoteFailure(e.toString());
+    }
+  }
+
+  Stream<NoteState> _editNote(EditNoteRequest note) async* {
+    yield NoteLoading();
+    try {
+      final result = await _apiNotes.edit(note);
+      yield result.fold((editedNote) {
+        _homeBloc.add(EditNote(editedNote));
+        return NoteInitial();
+      }, (error) => NoteFailure(error));
     } catch (e) {
       yield NoteFailure(e.toString());
     }

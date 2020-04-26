@@ -31,6 +31,6 @@ class AddNoteScreen extends StatelessWidget {
   }
 
   void _onSubmitClicked(BuildContext context, String content) {
-    _addNoteBloc.add(SubmitClicked(AddNoteRequest(content, DateTime.now())));
+    _addNoteBloc.add(SubmitClicked(AddNoteRequest(content)));
   }
 }

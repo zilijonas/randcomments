@@ -4,11 +4,12 @@ import 'package:randcomments/widgets/action_button.dart';
 import 'edit_note_form_field.dart';
 
 class EditNoteForm extends StatelessWidget {
-  final String _id;
   final String _initialValue;
-  final void Function(String) _onRemoveClicked;
+  final void Function() _onRemoveClicked;
+  final void Function(String) _onEditSaveClicked;
 
-  EditNoteForm(this._id, this._initialValue, this._onRemoveClicked);
+  EditNoteForm(
+      this._initialValue, this._onRemoveClicked, this._onEditSaveClicked);
 
   final _formKey = GlobalKey<FormState>();
   final Map<String, dynamic> _formData = {'content': null};
@@ -28,16 +29,14 @@ class EditNoteForm extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 36),
             ),
           ),
-          EditNoteFormField('You cannot save leave an empty note.',
+          EditNoteFormField('You cannot save empty or unedited note.',
               (val) => _formData['content'] = val, _initialValue),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ActionButton(
-                  Icons.check, Colors.lightGreen, () => Navigator.pop(context)),
+              ActionButton(Icons.check, Colors.lightGreen, _handleSubmit),
               SizedBox(width: 40),
-              ActionButton(
-                  Icons.clear, Colors.red[400], () => _onRemoveClicked(_id)),
+              ActionButton(Icons.clear, Colors.red[400], _onRemoveClicked),
             ],
           ),
           Row(
@@ -53,5 +52,11 @@ class EditNoteForm extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _handleSubmit() {
+    if (_formKey.currentState.validate()) {
+      _onEditSaveClicked(_formData['content']);
+    }
   }
 }
