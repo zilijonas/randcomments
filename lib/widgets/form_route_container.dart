@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ChildRouteContainer extends StatelessWidget {
+class FormRouteContainer extends StatelessWidget {
   final Widget child;
 
-  ChildRouteContainer({Key key, @required this.child});
+  FormRouteContainer({Key key, @required this.child});
 
   @override
   Widget build(BuildContext context) {
