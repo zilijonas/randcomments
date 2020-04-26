@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:randcomments/pages/home/index.dart';
 import 'package:randcomments/router/routes.dart';
 
-import 'widgets/painter/painter.dart';
-
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,13 +14,13 @@ class HomePage extends StatelessWidget {
           Icons.add,
           size: 32,
         ),
-        onPressed: () => _navigateToAddNote(context),
+        onPressed: () => _navigateToNewNote(context),
       ),
     );
   }
 
-  void _navigateToAddNote(BuildContext context) =>
-      Navigator.pushNamed(context, addNoteRoute);
+  void _navigateToNewNote(BuildContext context) =>
+      Navigator.pushNamed(context, newNoteRoute);
 
   void _navigateToNote(BuildContext context, String id) =>
       Navigator.pushNamed(context, noteRoute, arguments: id);

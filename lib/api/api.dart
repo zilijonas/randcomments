@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import 'add_note_request.dart';
+import 'new_note_request.dart';
 import 'edit_note_request.dart';
 import 'note/note.dart';
 
@@ -8,9 +8,9 @@ class Api {
   final Dio _dio;
   Api(this._dio);
 
-  Future<Note> addNote(AddNoteRequest note) async {
+  Future<Note> newNote(NewNoteRequest note) async {
     final response =
-        await _dio.post('addNote', queryParameters: note.toQueryPrams());
+        await _dio.post('newNote', queryParameters: note.toQueryPrams());
     return Note.fromJson(response.data);
   }
 

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart' show DioError;
-import 'package:randcomments/api/add_note_request.dart';
+import 'package:randcomments/api/new_note_request.dart';
 import 'package:randcomments/api/edit_note_request.dart';
 import 'package:randcomments/api/api.dart';
 import 'package:randcomments/api/note/note.dart';
@@ -26,9 +26,9 @@ class ApiNotes extends Notes {
     }
   }
 
-  Future<Either<Note, String>> add(AddNoteRequest note) async {
+  Future<Either<Note, String>> add(NewNoteRequest note) async {
     try {
-      return Left(await _api.addNote(note));
+      return Left(await _api.newNote(note));
     } on DioError catch (error) {
       return Right(error.message);
     }

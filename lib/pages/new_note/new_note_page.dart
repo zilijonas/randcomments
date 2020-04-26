@@ -5,13 +5,13 @@ import 'package:randcomments/widgets/form_route_container.dart';
 
 import 'index.dart';
 
-class AddNotePage extends StatelessWidget {
+class NewNotePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ThemeColors.blue,
       body: FormRouteContainer(
-        child: AddNoteScreen(BlocProvider.of<AddNoteBloc>(context),
+        child: NewNoteScreen(BlocProvider.of<NewNoteBloc>(context),
             () => _navigateBack(context)),
       ),
     );

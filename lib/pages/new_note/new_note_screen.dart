@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:randcomments/api/add_note_request.dart';
+import 'package:randcomments/api/new_note_request.dart';
 import 'package:randcomments/widgets/note_form_view.dart';
 
 import 'index.dart';
 
-class AddNoteScreen extends StatelessWidget {
-  final AddNoteBloc _addNoteBloc;
+class NewNoteScreen extends StatelessWidget {
+  final NewNoteBloc _newNoteBloc;
   final void Function() _navigateBack;
 
-  AddNoteScreen(this._addNoteBloc, this._navigateBack);
+  NewNoteScreen(this._newNoteBloc, this._navigateBack);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AddNoteBloc, AddNoteState>(
+    return BlocConsumer<NewNoteBloc, NewNoteState>(
       listener: (context, state) {
-        if (state is AddNoteInitial) {
+        if (state is NewNoteInitial) {
           _navigateBack();
         }
       },
       builder: (context, state) {
-        if (state is AddNoteFailure) {
+        if (state is NewNoteFailure) {
           return Center(child: Text(state.error));
         }
 
@@ -29,13 +29,13 @@ class AddNoteScreen extends StatelessWidget {
           initialValue: '',
           formFieldError: 'You cannot save an empty note.',
           onEditSaveClicked: (content) => _onSubmitClicked(context, content),
-          editSaveLoading: state is AddNoteLoading,
+          editSaveLoading: state is NewNoteLoading,
         );
       },
     );
   }
 
   void _onSubmitClicked(BuildContext context, String content) {
-    _addNoteBloc.add(SubmitClicked(AddNoteRequest(content)));
+    _newNoteBloc.add(SubmitClicked(NewNoteRequest(content)));
   }
 }

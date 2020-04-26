@@ -15,7 +15,7 @@ void main() {
       FakeNotes(fakeNote, success ? null : fakeError),
       bloc ?? HomeBloc(FakeNotes(fakeNote)));
 
-  test('initial state is AddNoteInitial', () {
+  test('initial state is NewNoteInitial', () {
     expect(NoteInitial(), _sut().initialState);
   });
 

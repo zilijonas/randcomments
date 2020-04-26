@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:randcomments/pages/home/widgets/list/notes_list.dart';
-import 'package:randcomments/pages/home/widgets/painter/circle.dart';
 
 import 'index.dart';
 import 'widgets/painter/painter.dart';

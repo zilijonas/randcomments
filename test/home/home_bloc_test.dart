@@ -20,7 +20,7 @@ void main() {
     sut.close();
   });
 
-  test('AddNotec emits [initial, loading, success]', () {
+  test('NewNotec emits [initial, loading, success]', () {
     final sut = _sut();
 
     expectLater(
@@ -31,7 +31,7 @@ void main() {
           HomeSuccess([fakeNote]),
         ]));
 
-    sut.add(AddNote(fakeNote));
+    sut.add(NewNote(fakeNote));
   });
 
   test('EditNote emits [initial, loading, success]', () {

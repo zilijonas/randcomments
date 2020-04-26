@@ -19,8 +19,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       yield* _fetchNotes();
     }
 
-    if (event is AddNote) {
-      yield* _addNote(event.note);
+    if (event is NewNote) {
+      yield* _newNote(event.note);
     }
 
     if (event is EditNote) {
@@ -43,7 +43,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  Stream<HomeState> _addNote(Note note) async* {
+  Stream<HomeState> _newNote(Note note) async* {
     final currentList = _currentNotesList(state);
     yield HomeLoading();
     yield HomeSuccess([note, ...currentList]);

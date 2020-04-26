@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:randcomments/api/add_note_request.dart';
+import 'package:randcomments/api/new_note_request.dart';
 import 'package:randcomments/api/note/note.dart';
 import 'package:randcomments/infrastructure/fakes/fake_notes.dart';
 import 'package:randcomments/pages/index.dart';
@@ -11,54 +11,54 @@ void main() {
   final fakeError = 'error';
   final fakeNote = Note('0', 'test', DateTime.now());
 
-  AddNoteBloc _sut([HomeBloc bloc, bool success = true]) => AddNoteBloc(
+  NewNoteBloc _sut([HomeBloc bloc, bool success = true]) => NewNoteBloc(
       FakeNotes(fakeNote, success ? null : fakeError),
       bloc ?? HomeBloc(FakeNotes(fakeNote)));
 
-  test('initial state is AddNoteInitial', () {
-    expect(AddNoteInitial(), _sut().initialState);
+  test('initial state is NewNoteInitial', () {
+    expect(NewNoteInitial(), _sut().initialState);
   });
 
   test('close does not emit new states', () {
     final sut = _sut();
-    expectLater(sut, emitsInOrder([AddNoteInitial(), emitsDone]));
+    expectLater(sut, emitsInOrder([NewNoteInitial(), emitsDone]));
     sut.close();
   });
 
   group('SubmitClicked', () {
-    test('emits AddNote in homeBloc', () {
+    test('emits NewNote in homeBloc', () {
       final homeBloc = MockHomeBloc();
       final sut = _sut(homeBloc);
 
       expectLater(
           sut,
           emitsInOrder([
-            AddNoteInitial(),
-            AddNoteLoading(),
-            AddNoteInitial(),
+            NewNoteInitial(),
+            NewNoteLoading(),
+            NewNoteInitial(),
           ])).then((_) {
-        verify(homeBloc.add(AddNote(fakeNote))).called(1);
+        verify(homeBloc.add(NewNote(fakeNote))).called(1);
       });
 
-      sut.add(SubmitClicked(AddNoteRequest(fakeNote.content)));
+      sut.add(SubmitClicked(NewNoteRequest(fakeNote.content)));
       homeBloc.close();
     });
 
-    test('does not emit AddNote in homeBloc on failure', () {
+    test('does not emit NewNote in homeBloc on failure', () {
       final homeBloc = MockHomeBloc();
       final sut = _sut(homeBloc, false);
 
       expectLater(
           sut,
           emitsInOrder([
-            AddNoteInitial(),
-            AddNoteLoading(),
-            AddNoteFailure(fakeError),
+            NewNoteInitial(),
+            NewNoteLoading(),
+            NewNoteFailure(fakeError),
           ])).then((_) {
-        verifyNever(homeBloc.add(AddNote(fakeNote)));
+        verifyNever(homeBloc.add(NewNote(fakeNote)));
       });
 
-      sut.add(SubmitClicked(AddNoteRequest(fakeNote.content)));
+      sut.add(SubmitClicked(NewNoteRequest(fakeNote.content)));
       homeBloc.close();
     });
   });

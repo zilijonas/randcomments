@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:randcomments/pages/add_note/index.dart';
+import 'package:randcomments/pages/new_note/index.dart';
 import 'package:randcomments/pages/note/index.dart';
 import 'package:randcomments/pages/home/index.dart';
 import 'package:randcomments/router/routes.dart';
@@ -11,8 +11,8 @@ class Router {
         return _route(HomePage());
       case noteRoute:
         return _route(NotePage(settings.arguments));
-      case addNoteRoute:
-        return _route(AddNotePage());
+      case newNoteRoute:
+        return _route(NewNotePage());
       default:
         return _route(Scaffold(
           body: Center(child: Text('No route defined for ${settings.name}')),

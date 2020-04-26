@@ -1,9 +1,9 @@
 import 'package:built_collection/built_collection.dart';
 
-class AddNoteRequest {
+class NewNoteRequest {
   final String _content;
 
-  AddNoteRequest(this._content);
+  NewNoteRequest(this._content);
 
   Map<String, dynamic> toQueryPrams() {
     return BuiltMap<String, String>({

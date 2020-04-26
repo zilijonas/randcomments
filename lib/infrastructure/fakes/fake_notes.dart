@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:randcomments/api/add_note_request.dart';
+import 'package:randcomments/api/new_note_request.dart';
 import 'package:randcomments/api/edit_note_request.dart';
 import 'package:randcomments/api/note/note.dart';
 import 'package:randcomments/core/notes.dart';
@@ -11,7 +11,7 @@ class FakeNotes extends Notes {
   FakeNotes(this.fakeNote, [this.error]);
 
   @override
-  Future<Either<Note, String>> add(AddNoteRequest note) =>
+  Future<Either<Note, String>> add(NewNoteRequest note) =>
       Future.value(error == null ? Left(fakeNote) : Right(error));
 
   @override

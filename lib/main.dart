@@ -28,9 +28,9 @@ class RandNotesApp extends StatelessWidget {
             BlocProvider<NoteBloc>(
                 create: (context) =>
                     NoteBloc(_apiNotes, BlocProvider.of<HomeBloc>(context))),
-            BlocProvider<AddNoteBloc>(
+            BlocProvider<NewNoteBloc>(
                 create: (context) =>
-                    AddNoteBloc(_apiNotes, BlocProvider.of<HomeBloc>(context))),
+                    NewNoteBloc(_apiNotes, BlocProvider.of<HomeBloc>(context))),
           ],
           child: MaterialApp(
             title: 'Random Notes',

@@ -10,10 +10,10 @@ abstract class HomeEvent extends Equatable {
 
 class HomeInitiated extends HomeEvent {}
 
-class AddNote extends HomeEvent {
+class NewNote extends HomeEvent {
   final Note note;
 
-  AddNote(this.note);
+  NewNote(this.note);
 }
 
 class EditNote extends HomeEvent {
