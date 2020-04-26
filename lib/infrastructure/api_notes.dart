@@ -4,8 +4,9 @@ import 'package:randcomments/api/add_note_request.dart';
 import 'package:randcomments/api/edit_note_request.dart';
 import 'package:randcomments/api/api.dart';
 import 'package:randcomments/api/note/note.dart';
+import 'package:randcomments/core/notes.dart';
 
-class ApiNotes {
+class ApiNotes extends Notes {
   final Api _api;
   ApiNotes(this._api);
 

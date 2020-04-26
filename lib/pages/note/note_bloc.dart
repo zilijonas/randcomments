@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:randcomments/api/edit_note_request.dart';
+import 'package:randcomments/core/notes.dart';
 import 'package:randcomments/pages/home/index.dart';
-import 'package:randcomments/infrastructure/api_notes.dart';
 
 import 'index.dart';
 
 class NoteBloc extends Bloc<NoteEvent, NoteState> {
-  final ApiNotes _apiNotes;
+  final Notes _apiNotes;
   final HomeBloc _homeBloc;
 
   NoteBloc(this._apiNotes, this._homeBloc);
