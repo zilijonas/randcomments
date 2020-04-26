@@ -4,7 +4,7 @@ import 'package:randcomments/pages/home/index.dart';
 import 'package:randcomments/router/routes.dart';
 
 import 'widgets/painter/circle.dart';
-import 'widgets/painter/painter.dart';
+import 'widgets/painter/circles_painter.dart';
 
 class HomePage extends StatelessWidget {
   @override

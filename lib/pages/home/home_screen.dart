@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:randcomments/pages/home/widgets/list/notes_list.dart';
 
 import 'index.dart';
+import 'widgets/painter/arrow_painter.dart';
 
 class HomeScreen extends StatefulWidget {
   final HomeBloc _homeBloc;
@@ -29,7 +30,13 @@ class _HomeScreenState extends State<HomeScreen> {
           return Center(child: CircularProgressIndicator());
         }
         if (state is HomeSuccess) {
-          return NotesList(state.notes, widget._navigateToNote);
+          return CustomPaint(
+              isComplex: true,
+              painter: state.notes.isEmpty
+                  ? ArrowPainter(
+                      'Your notes list is empty.\n You can add one by clicking here.')
+                  : null,
+              child: NotesList(state.notes, widget._navigateToNote));
         }
         return Center(
             child:
