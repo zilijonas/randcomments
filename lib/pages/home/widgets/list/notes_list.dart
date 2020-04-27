@@ -12,7 +12,8 @@ class NotesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics: const AlwaysScrollableScrollPhysics(),
+      physics:
+          const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
       itemCount: _notes.length,
       itemBuilder: (c, idx) =>
           NotesListItem(_notes[idx], () => _onItemClicked(_notes[idx].id)),

@@ -14,11 +14,11 @@ class NotesListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return BouncingButton(
       child: Container(
-        height: 100.0,
+        height: 80.0,
         margin: const EdgeInsets.all(8),
         padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
+          alignment: Alignment.centerLeft,
           children: <Widget>[
             _noteText(_note.content),
             _dateAndTimeText(_note.dateAndTime()),
@@ -40,28 +40,26 @@ class NotesListItem extends StatelessWidget {
     );
   }
 
-  Row _dateAndTimeText(String dateAndTime) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Text(
-          dateAndTime,
-          textAlign: TextAlign.right,
-          style: TextStyles.listItemDateTime,
-        ),
-      ],
+  Positioned _dateAndTimeText(String dateAndTime) {
+    return Positioned(
+      right: 0,
+      bottom: 0,
+      child: Text(
+        dateAndTime,
+        overflow: TextOverflow.ellipsis,
+        textAlign: TextAlign.right,
+        style: TextStyles.listItemDateTime,
+      ),
     );
   }
 
-  Expanded _noteText(String note) {
-    return Expanded(
-      child: Container(
-        child: Text(
-          note,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyles.listItemContent(note.length),
-        ),
+  Container _noteText(String note) {
+    return Container(
+      child: Text(
+        note,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyles.listItemContent(note.length),
       ),
     );
   }
